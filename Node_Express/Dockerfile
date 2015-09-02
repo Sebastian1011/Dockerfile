@@ -28,6 +28,6 @@ RUN npm install react
 
 
 
-
+EXPORT 3000
 
 CMD ["npm","start"]
