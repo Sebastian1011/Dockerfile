@@ -19,6 +19,8 @@ RUN mkdir -p /nodeWeb
 
 #ADD https://github.com/Sebastian1011/myWeb.git /nodeWeb/myweb
 WORKDIR /nodeWeb
+RUN sudo apt-get install -y git
+RUN sudo apt-get install -y git-core
 RUN git clone https://github.com/Sebastian1011/myWeb.git -b master
 WORKDIR /nodeWeb/myWeb
 RUN npm install -g express-generator
