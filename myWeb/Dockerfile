@@ -14,14 +14,16 @@ RUN apt-get install -y curl
 RUN curl --silent --location https://deb.nodesource.com/setup_0.12 | sudo bash -
 RUN apt-get install --yes nodejs
 
-# install express
-VOLUME ["sourceCode"]
-#RUN mkdir -p /nodeWeb/myweb
-WORKDIR /sourceCode
-ADD https://github.com/Sebastian1011/myWeb.git
+install express
+RUN mkdir -p /nodeWeb
+
+#ADD https://github.com/Sebastian1011/myWeb.git /nodeWeb/myweb
+WORKDIR /nodeWeb
+RUN git clone https://github.com/Sebastian1011/myWeb.git -b master
+WORKDIR /nodeWeb/myWeb
 RUN npm install -g express-generator
-#RUN express -e website
-WORKDIR /sourceCode/myWeb
+
+
 RUN npm install
 
 #install dependencies
