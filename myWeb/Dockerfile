@@ -14,7 +14,7 @@ RUN apt-get install -y curl
 RUN curl --silent --location https://deb.nodesource.com/setup_0.12 | sudo bash -
 RUN apt-get install --yes nodejs
 
-install express
+#install express
 RUN mkdir -p /nodeWeb
 
 #ADD https://github.com/Sebastian1011/myWeb.git /nodeWeb/myweb
