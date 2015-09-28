@@ -1,0 +1,18 @@
+Laravel 代码中访问数据库所需的参数，是通过读取环境变量的方式声明的。
+
+config/database.php 修改变量为更贴近 Docker 的方式：
+
+'host'      => env('MYSQL_PORT_3306_TCP_ADDR', 'localhost'),
+'database'  => env('MYSQL_INSTANCE_NAME', 'forge'),
+'username'  => env('MYSQL_USERNAME', 'forge'),
+'password'  => env('MYSQL_PASSWORD', ''),
+这样做是因为在 Docker 化应用开发的最佳实践中，通常将有状态的数据类服务放在另一个容器内运行，并通过容器特有的 link 机制将应用容器与数据容器动态的连接在一起。
+
+绑定 MySQL 数据容器（本地）
+
+首先，需要创建一个 MySQL 容器。
+
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d daocloud.io/mysql:5.5
+之后，通过 Docker 容器间的 link 机制，便可将 MySQL 的默认端口 (3306) 暴露给应用容器。
+
+docker run --name some-app --link some-mysql:mysql -d app-that-uses-mysql
